@@ -30,7 +30,7 @@ int keyInputPins[] = {9, 8, 7, 6, 5, 4, 3, 2};
 int buttonOutputs[] = {23, 25, 27, 29, 31, 33};
 int buttonInputs[] = {39, 41, 43, 45, 47, 49, 51, 53};
 int analogPins[11] = {A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11};
-int ledPins [4] = {10,11,12,13}
+int ledPins [4] = {10,11,12,13};
 
 //analog controls state arrays
 int analogValue[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -70,6 +70,21 @@ byte buttonStateMatrix[buttonOutputCount][buttonInputCount] = {{0, 0, 0, 0, 0, 0
                                                                {0, 0, 0, 0, 0, 0, 0, 0},
                                                                {0, 0, 0, 0, 0, 0, 0, 0},
                                                                {0, 0, 0, 0, 0, 0, 0, 0}};
+//Declare all functions.
+void getKey();
+void scanKeyOutput(int keyOutputNum);
+void scanKeyInput(int keyInputNum, int keyOutputNum);
+void whenKeyPressed(int keyInputNum, int keyOutputNum);
+void whenKeyReleased(int keyInputNum, int keyOutputNum);
+void MidiSend(int channel, int cmd, int value);
+void getButton();
+void scanButtonOutput(int buttonOutputNum);
+void scanButtonInput(int buttonInputNum, int buttonOutputNum);
+void whenButtonPressed(int buttonInputNum, int buttonOutputNum);
+void whenButtonReleased(int buttonInputNum, int buttonOutputNum);
+void getAnalog();
+
+
 
 void setup() {
     Serial.begin(baudRate);
@@ -79,7 +94,7 @@ void setup() {
     }                                                                                     //This means that all logic is reversed.
     for (int keyOutputPin = 0; keyOutputPin < keyOutputCount; keyOutputPin++)
     {
-        pinMode([keyOutputPin], OUTPUT);                                                    //Setup all row pins as OUTPUT.
+        pinMode(keyOutputPins[keyOutputPin], OUTPUT);                                                    //Setup all row pins as OUTPUT.
     }
     for (int buttonInputPin = 0; buttonInputPin < buttonInputCount; buttonInputPin++)
     {                                                                                     //Setup all column pins as INPUT_PULLUP.
